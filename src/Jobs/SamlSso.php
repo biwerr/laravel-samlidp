@@ -92,7 +92,7 @@ class SamlSso implements SamlContract
             )
             ->setConditions(
                 (new Conditions)
-                    ->setNotBefore(new \DateTime)
+                    ->setNotBefore($this->authn_request->getIssueInstantTimestamp() ? $this->authn_request->getIssueInstantTimestamp() : new \DateTime())
                     ->setNotOnOrAfter(new \DateTime('+1 MINUTE'))
                     ->addItem(
                         new AudienceRestriction([$this->authn_request->getIssuer()->getValue()])
